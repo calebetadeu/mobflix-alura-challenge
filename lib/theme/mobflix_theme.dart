@@ -5,13 +5,10 @@ class MobflixTheme {
   static const Color background = Color(0xFF1A1A1A);
   static Color? primaryColor = Colors.blue[400];
   static ButtonStyle outlinedButtonStyle(
-      {Color color = Colors.white, double padding = 24}) {
-    return OutlinedButton.styleFrom(
-        foregroundColor: color,
-        padding: EdgeInsets.symmetric(vertical: padding),
-        side: BorderSide(color: color),
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(100))));
+      {Color color = const Color(0xFF2478DF), double padding = 24}) {
+    return ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        backgroundColor: Colors.blueAccent);
   }
 
   static ThemeData theme = ThemeData(
@@ -20,7 +17,7 @@ class MobflixTheme {
       primaryColor: primaryColor,
       useMaterial3: true,
       colorScheme: const ColorScheme(
-          background: background,
+          background: Color(0xff3423),
           brightness: Brightness.light,
           error: Colors.red,
           onBackground: Colors.white10,
@@ -38,8 +35,7 @@ class MobflixTheme {
       ),
 
       /// textTheme: GoogleFonts.wendyOneTextTheme(ThemeData.dark().textTheme),
-      outlinedButtonTheme:
-          OutlinedButtonThemeData(style: outlinedButtonStyle()),
+
       appBarTheme: AppBarTheme(
           elevation: 0,
           backgroundColor: background,
