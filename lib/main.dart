@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobflix_alura_challenge/screens/home_screen.dart';
+import 'package:mobflix_alura_challenge/screens/cadaster_screen.dart';
 
 import 'theme/mobflix_theme.dart';
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: MobflixTheme.theme,
-      home: const Home(),
+      home: const CadasterScreen(), //const Home(),
     );
   }
 }

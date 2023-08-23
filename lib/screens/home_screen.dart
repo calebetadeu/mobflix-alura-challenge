@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobflix_alura_challenge/components/card_youtube_list_vertical.dart';
+import 'package:mobflix_alura_challenge/components/tag_youtube_list_horizontal.dart';
 import 'package:mobflix_alura_challenge/theme/mobflix_theme.dart';
 
 class Home extends StatefulWidget {
@@ -16,42 +18,47 @@ class _HomeState extends State<Home> {
         title: const Text("MOBFLIX"),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              SizedBox(
-                height: 155,
-                width: double.infinity,
-                child: Image.asset(
-                  'images/banner.jpeg',
-                  fit: BoxFit.cover,
-                ),
+          Stack(alignment: Alignment.bottomCenter, children: [
+            SizedBox(
+              height: 155,
+              width: double.infinity,
+              child: Image.asset(
+                'images/banner.jpeg',
+                fit: BoxFit.cover,
               ),
-              Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: SizedBox(
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: MobflixTheme.outlinedButtonStyle(),
-                    child: const Text(
-                      "Assista agora",
-                      style: TextStyle(fontSize: 22),
-                    ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: SizedBox(
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: MobflixTheme.outlinedButtonStyle(),
+                  child: const Text(
+                    "Assista agora",
+                    style: TextStyle(fontSize: 22),
                   ),
                 ),
-              )
-            ],
-          ),
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text(
-              "Conteúdo da Página",
-              style: TextStyle(fontSize: 20),
+              ),
             ),
-          ),
+          ]),
+          const SizedBox(height: 20),
+          const TagYoutubeListHorizontal(),
+          const SizedBox(height: 20),
+          const Expanded(child: CardYoutubeList()),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        shape: const CircleBorder(),
+        backgroundColor: Colors.deepPurple,
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 30,
+        ),
       ),
     );
   }
