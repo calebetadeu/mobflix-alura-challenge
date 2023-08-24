@@ -4,12 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 class MobflixTheme {
   static const Color background = Color(0xFF1A1A1A);
   static Color? primaryColor = Colors.blue[400];
-  static ButtonStyle outlinedButtonStyle(
-      {Color color = const Color(0xFF2478DF), double padding = 24}) {
-    return ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        backgroundColor: Colors.blueAccent);
-  }
+ 
 
   static ThemeData theme = ThemeData(
       brightness: Brightness.light,

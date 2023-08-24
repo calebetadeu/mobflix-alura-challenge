@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobflix_alura_challenge/components/tag_youtube.dart';
+import 'package:mobflix_alura_challenge/components/card_youtube_image.dart';
 import 'package:mobflix_alura_challenge/model/card_youtube_model.dart';
 
 class CardYoutubeList extends StatelessWidget {
@@ -8,15 +8,10 @@ class CardYoutubeList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<CardYoutubeModel> cardYoutubeList = [
+      CardYoutubeModel(category: "Mobile", imageAsset: 'images/banner.jpeg'),
       CardYoutubeModel(
-          tagYoutube: const TagYoutube(name: "Mobile", color: Colors.red),
-          imageAsset: 'images/banner.jpeg'),
-      CardYoutubeModel(
-          tagYoutube: const TagYoutube(name: "Mobile", color: Colors.red),
-          imageAsset: 'images/banner.jpeg'),
-      CardYoutubeModel(
-          tagYoutube: const TagYoutube(name: "Mobile", color: Colors.red),
-          imageAsset: 'images/banner.jpeg')
+          category: "Progamação", imageAsset: 'images/banner.jpeg'),
+      CardYoutubeModel(category: "Front End", imageAsset: 'images/banner.jpeg')
     ];
 
     return Padding(
@@ -26,31 +21,8 @@ class CardYoutubeList extends StatelessWidget {
         itemCount: cardYoutubeList.length, // Corrigido o itemCount
         itemBuilder: (BuildContext context, int index) {
           CardYoutubeModel model = cardYoutubeList[index];
-          return Column(
-            children: [
-              Row(
-                children: [
-                  TagYoutube(
-                    name: model.tagYoutube.name,
-                    color: model.tagYoutube.color,
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 12,
-              ),
-              Center(
-                child: SizedBox(
-                  height: 200,
-                  width: double.infinity,
-                  child: Image.asset(
-                    model.imageAsset,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              )
-            ],
-          );
+          return CardYoutubeImage(
+              category: model.category, image: model.imageAsset);
         },
       ),
     );

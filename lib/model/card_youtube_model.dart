@@ -1,10 +1,5 @@
-
-
-import 'package:mobflix_alura_challenge/components/tag_youtube.dart';
-
 class CardYoutubeModel {
-  CardYoutubeModel({required this.tagYoutube,required this.imageAsset});
-  final TagYoutube tagYoutube;
+  CardYoutubeModel({required this.category, required this.imageAsset});
+  final String category;
   final String imageAsset;
-
 }

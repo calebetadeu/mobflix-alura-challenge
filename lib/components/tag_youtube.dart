@@ -4,7 +4,7 @@ class TagYoutube extends StatelessWidget {
   const TagYoutube({super.key, required this.name, required this.color});
 
   final String name;
-  final Color color;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {

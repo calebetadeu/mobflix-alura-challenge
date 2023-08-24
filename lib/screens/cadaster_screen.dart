@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobflix_alura_challenge/components/input.dart';
 
 class CadasterScreen extends StatelessWidget {
   const CadasterScreen({Key? key}) : super(key: key);
@@ -24,34 +25,60 @@ class CadasterScreen extends StatelessWidget {
                       color: Colors.white,
                       fontWeight: FontWeight.bold),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 42),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'URL',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      const SizedBox(height: 12.0),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blue.shade900,
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: const TextField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            hintText: 'Ex:N3h5AOoAzsk',
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(255, 125, 120, 120),
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ],
+                const InputCadaster(
+                  label: "URL",
+                  hint: "Ex:SJDMDMMSMMDKFMD",
+                ),
+                const InputCadaster(
+                  label: "Categoria",
+                  hint: "Mobile",
+                ),
+                const SizedBox(
+                  height: 19,
+                ),
+                const Text(
+                  "Preview",
+                  style: TextStyle(
+                      fontSize: 32,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                Center(
+                  child: SizedBox(
+                    height: 200,
+                    width: double.infinity,
+                    child: Image.asset(
+                      'images/preview_youtube.png',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
+                const SizedBox(
+                  height: 25,
+                ),
+                Center(
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: 60,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              10), // Define o raio da borda
+                        ),
+                        backgroundColor: Colors.blue.shade700,
+                      ),
+                      child: const Text(
+                        'Cadastrar',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                )
               ],
             ),
           ),

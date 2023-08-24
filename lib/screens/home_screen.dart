@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobflix_alura_challenge/components/card_youtube_list_vertical.dart';
 import 'package:mobflix_alura_challenge/components/tag_youtube_list_horizontal.dart';
-import 'package:mobflix_alura_challenge/theme/mobflix_theme.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -35,7 +34,7 @@ class _HomeState extends State<Home> {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {},
-                  style: MobflixTheme.outlinedButtonStyle(),
+                  style: ElevatedButton.styleFrom(),
                   child: const Text(
                     "Assista agora",
                     style: TextStyle(fontSize: 22),
