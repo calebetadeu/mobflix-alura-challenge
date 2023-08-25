@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobflix_alura_challenge/components/input.dart';
+import 'package:mobflix_alura_challenge/screens/home_screen.dart';
 
 class CadasterScreen extends StatelessWidget {
   const CadasterScreen({Key? key}) : super(key: key);
@@ -64,7 +65,12 @@ class CadasterScreen extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     height: 60,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return const Home();
+                        }));
+                      },
                       style: OutlinedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(

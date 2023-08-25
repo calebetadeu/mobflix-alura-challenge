@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:mobflix_alura_challenge/providers/mobiflix_provider.dart';
+import 'package:mobflix_alura_challenge/routes/mobflix_routes.dart';
 import 'package:mobflix_alura_challenge/screens/cadaster_screen.dart';
+import 'package:mobflix_alura_challenge/screens/home_screen.dart';
+import 'package:provider/provider.dart';
 
 import 'theme/mobflix_theme.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (context) => MobflixProvider()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -17,7 +26,11 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: MobflixTheme.theme,
-      home: const CadasterScreen(), //const Home(),
+      initialRoute: MobflixRoutes.home,
+      routes: {
+        MobflixRoutes.cadaster: (context) => const CadasterScreen(),
+      },
+      home: const Home(), //const CadasterScreen(), //
     );
   }
 }

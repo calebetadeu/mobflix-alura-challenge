@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobflix_alura_challenge/components/card_youtube_list_vertical.dart';
 import 'package:mobflix_alura_challenge/components/tag_youtube_list_horizontal.dart';
+import 'package:mobflix_alura_challenge/routes/mobflix_routes.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -15,6 +16,7 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("MOBFLIX"),
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -34,7 +36,8 @@ class _HomeState extends State<Home> {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {},
-                  style: ElevatedButton.styleFrom(),
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueAccent),
                   child: const Text(
                     "Assista agora",
                     style: TextStyle(fontSize: 22),
@@ -50,7 +53,9 @@ class _HomeState extends State<Home> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, MobflixRoutes.cadaster);
+        },
         shape: const CircleBorder(),
         backgroundColor: Colors.deepPurple,
         child: const Icon(
