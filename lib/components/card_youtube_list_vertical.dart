@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../model/card_youtube_model.dart';
 import '../providers/mobiflix_provider.dart';
@@ -7,6 +8,15 @@ import 'card_youtube_image.dart';
 
 class CardYoutubeList extends StatelessWidget {
   const CardYoutubeList({Key? key}) : super(key: key);
+  Future<void> _launchInBrowser(String url) async {
+    final Uri? uri = Uri.tryParse(url);
+
+    if (await canLaunchUrl(uri!)) {
+      await launchUrl(uri);
+    } else {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +31,12 @@ class CardYoutubeList extends StatelessWidget {
             itemCount: list.length,
             itemBuilder: (BuildContext context, int index) {
               CardYoutubeModel model = list[index];
-              return CardYoutubeImage(
-                  type: model.type, image: model.imageAsset);
+              return GestureDetector(
+                onTap: () {
+                  _launchInBrowser(model.url); // Open the YouTube video URL
+                },
+                child: CardYoutubeImage(type: model.type, image: model.url),
+              );
             },
           ),
         );

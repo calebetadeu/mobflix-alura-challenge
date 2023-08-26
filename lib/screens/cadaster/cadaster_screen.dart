@@ -118,8 +118,9 @@ class _CadasterScreenState extends State<CadasterScreen> {
                       child: ElevatedButton(
                         onPressed: () async {
                           final CardYoutubeModel model = CardYoutubeModel(
-                              imageAsset: urlController.text,
-                              type: _selectedOption.typeCategory);
+                            url: urlController.text,
+                            type: _selectedOption.typeCategory,
+                          );
                           await context
                               .read<MobflixProvider>()
                               .cadasterVideo(model)

@@ -1,8 +1,8 @@
 class CardYoutubeModel {
   final TypeCategory type;
-  final String imageAsset;
+  final String url;
 
-  CardYoutubeModel({required this.imageAsset, required this.type});
+  CardYoutubeModel({ required this.type,required this.url});
 }
 
 enum TypeCategory {

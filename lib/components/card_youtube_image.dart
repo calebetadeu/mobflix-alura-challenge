@@ -4,15 +4,16 @@ import 'package:mobflix_alura_challenge/model/card_youtube_model.dart';
 import 'package:mobflix_alura_challenge/screens/cadaster/util/youtube_thumbnail.dart';
 
 class CardYoutubeImage extends StatelessWidget {
-  const CardYoutubeImage(
-      {super.key,
-      required this.image,
-      required this.type});
+  const CardYoutubeImage({
+    super.key,
+    required this.image,
+    required this.type,
+  });
 
   final String image;
   final TypeCategory type;
+  // final Future<void> launchUrl;
 
-  
   static Color? colorCategory;
   static String? category;
 
@@ -27,7 +28,7 @@ class CardYoutubeImage extends StatelessWidget {
         category = "Front End";
       case TypeCategory.programming:
         colorCategory = Colors.blue;
-        category = "Programming";
+        category = "Programmxing";
     }
     return Padding(
       padding: const EdgeInsets.all(8.0),
