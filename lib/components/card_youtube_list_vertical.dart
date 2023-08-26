@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../model/card_youtube_model.dart';
-import '../routes/mobiflix_provider.dart';
+import '../providers/mobiflix_provider.dart';
 import 'card_youtube_image.dart';
 
 class CardYoutubeList extends StatelessWidget {
@@ -22,9 +22,7 @@ class CardYoutubeList extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               CardYoutubeModel model = list[index];
               return CardYoutubeImage(
-                  type: model.type,
-                  category: model.category,
-                  image: model.imageAsset);
+                  type: model.type, image: model.imageAsset);
             },
           ),
         );

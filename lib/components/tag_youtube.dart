@@ -11,7 +11,7 @@ class TagYoutube extends StatelessWidget {
       })
       : super(key: key);
 
-  final String name;
+  final String? name;
   final Color? color;
   final TypeCategory? type;
 
@@ -31,10 +31,16 @@ class TagYoutube extends StatelessWidget {
           await changeColor!(); // Chama a função somente se ela não for nula
         }
       },
-      child: Text(
-        name,
-        style: const TextStyle(fontSize: 18),
-      ),
+
+      child: 
+       name != null
+          ? Text(
+              name!,
+              style: const TextStyle(fontSize: 18),
+            )
+          : const SizedBox()
+      
+      
     );
   }
 }

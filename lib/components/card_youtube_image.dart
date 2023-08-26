@@ -1,30 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:mobflix_alura_challenge/components/tag_youtube.dart';
 import 'package:mobflix_alura_challenge/model/card_youtube_model.dart';
+import 'package:mobflix_alura_challenge/screens/cadaster/util/youtube_thumbnail.dart';
 
 class CardYoutubeImage extends StatelessWidget {
   const CardYoutubeImage(
       {super.key,
-      required this.category,
       required this.image,
       required this.type});
 
-  final String category;
   final String image;
   final TypeCategory type;
 
-  // static String? typeCategory;
+  
   static Color? colorCategory;
+  static String? category;
 
   @override
   Widget build(BuildContext context) {
     switch (type) {
       case TypeCategory.mobile:
         colorCategory = Colors.red;
+        category = "Mobile";
       case TypeCategory.frontEnd:
         colorCategory = Colors.green;
+        category = "Front End";
       case TypeCategory.programming:
         colorCategory = Colors.blue;
+        category = "Programming";
     }
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -45,10 +48,7 @@ class CardYoutubeImage extends StatelessWidget {
             child: SizedBox(
               height: 200,
               width: double.infinity,
-              child: Image.asset(
-                image,
-                fit: BoxFit.cover,
-              ),
+              child: getYoutubeThumbnail(image),
             ),
           )
         ],

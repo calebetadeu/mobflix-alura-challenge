@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:mobflix_alura_challenge/model/selected_category_model.dart';
+
+import '../model/selected_category_model.dart';
 
 class InputSelectedCadaster extends StatefulWidget {
-  const InputSelectedCadaster({
-    Key? key,
-    required this.label,
-    required this.hint,
-    required this.categoryList,
-    required this.initialValue,
-  }) : super(key: key);
+  const InputSelectedCadaster(
+      {Key? key,
+      required this.label,
+      required this.hint,
+      required this.categoryList,
+      required this.initialValue,
+      this.onChanged})
+      : super(key: key);
 
   final String label;
   final String hint;
   final List<SelectedCategoryModel> categoryList;
   final SelectedCategoryModel initialValue;
-
+  final ValueChanged<SelectedCategoryModel?>? onChanged;
   @override
-  _InputSelectedCadasterState createState() => _InputSelectedCadasterState();
+  State<InputSelectedCadaster> createState() => _InputSelectedCadasterState();
 }
 
 class _InputSelectedCadasterState extends State<InputSelectedCadaster> {
@@ -48,39 +50,46 @@ class _InputSelectedCadasterState extends State<InputSelectedCadaster> {
             ),
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: DropdownButton<SelectedCategoryModel>(
-                isExpanded: true,
-                value: _selectedOption,
-                icon: const Icon(
-                  Icons.arrow_drop_down,
-                  color: Colors.white,
-                ),
-                iconSize: 24,
-                elevation: 16,
-                dropdownColor: Colors.blue.shade900,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w800,
-                  fontSize: 18,
-                ),
-                underline: Container(
-                  height: 0,
-                  color: Colors.blue.shade900,
-                ),
-                onChanged: (SelectedCategoryModel? newValue) {
-                  setState(() {
-                    _selectedOption = newValue!;
-                  });
-                },
-                items: widget.categoryList
-                    .map<DropdownMenuItem<SelectedCategoryModel>>(
-                  (SelectedCategoryModel value) {
-                    return DropdownMenuItem<SelectedCategoryModel>(
-                      value: value,
-                      child: Text(value.categoryName),
-                    );
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<SelectedCategoryModel>(
+                  isExpanded: true,
+                  value: _selectedOption.categoryName.isNotEmpty
+                      ? _selectedOption
+                      : null,
+                  icon: const Icon(
+                    Icons.arrow_drop_down,
+                    color: Colors.white,
+                  ),
+                  iconSize: 24,
+                  elevation: 16,
+                  dropdownColor: Colors.blue.shade900,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w800,
+                    fontSize: 18,
+                  ),
+                  onChanged: (SelectedCategoryModel? newValue) {
+                    setState(() {
+                      _selectedOption = newValue!;
+                    });
+                    if (widget.onChanged != null) {
+                      widget.onChanged!(newValue);
+                    }
                   },
-                ).toList(),
+                  items: widget.categoryList.map((item) {
+                    return DropdownMenuItem<SelectedCategoryModel>(
+                      value: item,
+                      child: Container(
+                        color: Colors.blue.shade900,
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          item.categoryName,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
               ),
             ),
           ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobflix_alura_challenge/model/card_youtube_model.dart';
 import 'package:provider/provider.dart';
 
-import '../routes/mobiflix_provider.dart';
+import '../providers/mobiflix_provider.dart';
 import 'tag_youtube.dart';
 
 class TagYoutubeListHorizontal extends StatelessWidget {
