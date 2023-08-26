@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mobflix_alura_challenge/providers/mobiflix_provider.dart';
 import 'package:mobflix_alura_challenge/routes/mobflix_routes.dart';
+import 'package:mobflix_alura_challenge/routes/mobiflix_provider.dart';
 import 'package:mobflix_alura_challenge/screens/cadaster_screen.dart';
 import 'package:mobflix_alura_challenge/screens/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: MobflixTheme.theme,
       initialRoute: MobflixRoutes.home,
