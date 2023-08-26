@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../model/card_youtube_model.dart';
-import '../providers/mobiflix_provider.dart';
+import '../repositories/mobflix_repository.dart';
 import 'card_youtube_image.dart';
 
 class CardYoutubeList extends StatelessWidget {
@@ -20,7 +20,7 @@ class CardYoutubeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<MobflixProvider>(
+    return Consumer<MobflixRepository>(
       builder: (context, mobflixProvider, child) {
         List<CardYoutubeModel> list = mobflixProvider.currentList;
 

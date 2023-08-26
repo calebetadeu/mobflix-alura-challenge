@@ -38,6 +38,7 @@ dependencies:
   google_fonts: ^5.1.0
   provider: ^6.0.5
   url_launcher: ^6.1.12
+  sqflite: ^2.3.0
 
 dev_dependencies:
   flutter_test:

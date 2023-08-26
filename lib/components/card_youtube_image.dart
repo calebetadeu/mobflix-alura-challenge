@@ -28,7 +28,7 @@ class CardYoutubeImage extends StatelessWidget {
         category = "Front End";
       case TypeCategory.programming:
         colorCategory = Colors.blue;
-        category = "Programmxing";
+        category = "Programação";
     }
     return Padding(
       padding: const EdgeInsets.all(8.0),

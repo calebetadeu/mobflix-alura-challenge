@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobflix_alura_challenge/model/card_youtube_model.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/mobiflix_provider.dart';
+import '../repositories/mobflix_repository.dart';
 import 'tag_youtube.dart';
 
 class TagYoutubeListHorizontal extends StatelessWidget {
@@ -41,7 +41,7 @@ class TagYoutubeListHorizontal extends StatelessWidget {
                 color: tag.color,
                 changeColor: () async {
                   await context
-                      .read<MobflixProvider>()
+                      .read<MobflixRepository>()
                       .changeCategory(tag.type);
                 },
               ),

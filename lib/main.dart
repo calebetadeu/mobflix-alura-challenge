@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:mobflix_alura_challenge/repositories/mobflix_repository.dart';
 import 'package:mobflix_alura_challenge/routes/mobflix_routes.dart';
-import 'package:mobflix_alura_challenge/providers/mobiflix_provider.dart';
 import 'package:mobflix_alura_challenge/screens/cadaster/cadaster_screen.dart';
 import 'package:mobflix_alura_challenge/screens/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +10,7 @@ import 'theme/mobflix_theme.dart';
 void main() {
   runApp(MultiProvider(
     providers: [
-      ChangeNotifierProvider(create: (context) => MobflixProvider()),
+      ChangeNotifierProvider(create: (context) => MobflixRepository()),
     ],
     child: const MyApp(),
   ));

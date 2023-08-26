@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import '../../components/input_cadaster.dart';
 import '../../components/input_select_cadaster.dart';
 import '../../model/selected_category_model.dart';
-import '../../providers/mobiflix_provider.dart';
+import '../../repositories/mobflix_repository.dart';
 import '../home_screen.dart';
 
 class CadasterScreen extends StatefulWidget {
@@ -122,7 +122,7 @@ class _CadasterScreenState extends State<CadasterScreen> {
                             type: _selectedOption.typeCategory,
                           );
                           await context
-                              .read<MobflixProvider>()
+                              .read<MobflixRepository>()
                               .cadasterVideo(model)
                               .then((value) {
                             Navigator.pushReplacement(

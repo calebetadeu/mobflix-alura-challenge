@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:mobflix_alura_challenge/components/card_youtube_list_vertical.dart';
 import 'package:mobflix_alura_challenge/components/tag_youtube_list_horizontal.dart';
 import 'package:mobflix_alura_challenge/routes/mobflix_routes.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -12,15 +11,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  
-  Future<void> _launchInBrowser(Uri url) async {
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
-      throw Exception('Could not launch $url');
-    }
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
