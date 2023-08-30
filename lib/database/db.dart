@@ -15,8 +15,11 @@ class DB {
   }
 
   _initDataBase() async {
-    return await openDatabase(join(await getDatabasesPath(), 'mobflix.db'),
-        version: 1, onCreate: _onCreate);
+    return await openDatabase(
+      join(await getDatabasesPath(), 'mobflix.db'),
+      version: 1,
+      onCreate: _onCreate,
+    );
   }
 
   _onCreate(Database db, int version) async {

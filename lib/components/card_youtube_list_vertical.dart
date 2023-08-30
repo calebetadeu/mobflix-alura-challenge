@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobflix_alura_challenge/screens/edit_video.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -8,6 +9,7 @@ import 'card_youtube_image.dart';
 
 class CardYoutubeList extends StatelessWidget {
   const CardYoutubeList({Key? key}) : super(key: key);
+
   Future<void> _launchInBrowser(String url) async {
     final Uri? uri = Uri.tryParse(url);
 
@@ -34,6 +36,18 @@ class CardYoutubeList extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   _launchInBrowser(model.url); // Open the YouTube video URL
+                },
+                onLongPress: () {
+                  mobflixProvider.setVideoYoutubeEdit(model).then((_) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return const EditVideoScreen();
+                        },
+                      ),
+                    );
+                  });
                 },
                 child: CardYoutubeImage(type: model.type, image: model.url),
               );

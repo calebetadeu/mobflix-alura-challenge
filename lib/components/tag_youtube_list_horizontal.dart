@@ -5,9 +5,15 @@ import 'package:provider/provider.dart';
 import '../repositories/mobflix_repository.dart';
 import 'tag_youtube.dart';
 
-class TagYoutubeListHorizontal extends StatelessWidget {
+class TagYoutubeListHorizontal extends StatefulWidget {
   const TagYoutubeListHorizontal({Key? key}) : super(key: key);
 
+  @override
+  State<TagYoutubeListHorizontal> createState() =>
+      _TagYoutubeListHorizontalState();
+}
+
+class _TagYoutubeListHorizontalState extends State<TagYoutubeListHorizontal> {
   @override
   Widget build(BuildContext context) {
     List<TagYoutube> tagYoutubeList = [

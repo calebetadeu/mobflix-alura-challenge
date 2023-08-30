@@ -3,6 +3,7 @@ import 'package:mobflix_alura_challenge/model/card_youtube_model.dart';
 import 'package:mobflix_alura_challenge/screens/cadaster/util/youtube_thumbnail.dart';
 import 'package:provider/provider.dart';
 
+import '../../components/custom_elevated_button.dart';
 import '../../components/input_cadaster.dart';
 import '../../components/input_select_cadaster.dart';
 import '../../model/selected_category_model.dart';
@@ -25,15 +26,12 @@ class _CadasterScreenState extends State<CadasterScreen> {
 
   late final List<SelectedCategoryModel> _categoryList = [
     SelectedCategoryModel(
-      categoryName: "Mobile",
       typeCategory: TypeCategory.mobile,
     ),
     SelectedCategoryModel(
-      categoryName: "Front end",
       typeCategory: TypeCategory.frontEnd,
     ),
     SelectedCategoryModel(
-      categoryName: "Progamação",
       typeCategory: TypeCategory.programming,
     ),
   ];
@@ -43,113 +41,128 @@ class _CadasterScreenState extends State<CadasterScreen> {
     super.dispose();
   }
 
+  ImageProvider _thumbnailImageProvider =
+      AssetImage("images/preview_youtube.png");
+
   @override
   void initState() {
     super.initState();
-    _selectedOption = _categoryList[0]; // Initialize it with the first value
+    _selectedOption = _categoryList.first;
+    urlController.addListener(updateThumbnail);
+    // Initialize it with the first value
+  }
+
+  void updateThumbnail() {
+    setState(() {
+      _thumbnailImageProvider = getImageProviderFromUrl(urlController.text);
+    });
+  }
+
+  // Função para obter um ImageProvider adequado
+  ImageProvider getImageProviderFromUrl(String url) {
+    if (url.isNotEmpty) {
+      return NetworkImage(url); // Use NetworkImage para URLs da web
+    } else {
+      return AssetImage(
+          "images/preview_youtube.png"); // Usar a imagem padrão para URLs vazias
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: SafeArea(
-        child: Align(
-          alignment: Alignment.topLeft,
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: 20.0,
-              top: 20,
-              right: 20.0,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
                     "Cadastre o vídeo",
                     style: TextStyle(
                         fontSize: 32,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
-                  InputCadaster(
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InputCadaster(
                     label: "URL",
                     hint: "Ex:SJDMDMMSMMDKFMD",
                     controller: urlController, // Pass the controller
                   ),
-                  InputSelectedCadaster(
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: InputSelectedCadaster(
                     label: 'Categoria',
                     hint: 'Selecione a área',
                     categoryList: _categoryList,
-                    initialValue: _categoryList[0],
+                    type: TypeCategory.mobile,
                     onChanged: (SelectedCategoryModel? newValue) {
                       if (newValue != null) {
                         _selectedOption = newValue;
                       }
                     },
                   ),
-                  const SizedBox(
-                    height: 19,
-                  ),
-                  const Text(
+                ),
+                const SizedBox(
+                  height: 19,
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(2.0),
+                  child: Text(
                     "Preview",
                     style: TextStyle(
                         fontSize: 32,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(
-                    height: 12,
+                ),
+                const SizedBox(
+                  height: 4,
+                ),
+                Center(
+                  child: SizedBox(
+                    height: 200,
+                    width: double.infinity,
+                    child: getYoutubeThumbnail(urlController.text),
                   ),
-                  Center(
-                    child: SizedBox(
-                      height: 200,
-                      width: double.infinity,
-                      child: getYoutubeThumbnail(urlController.text),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  Center(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 60,
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          final CardYoutubeModel model = CardYoutubeModel(
-                            url: urlController.text,
-                            type: _selectedOption.typeCategory,
-                          );
-                          await context
-                              .read<MobflixRepository>()
-                              .cadasterVideo(model)
-                              .then((value) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (BuildContext context) {
-                                  return const Home();
-                                },
-                              ),
-                            );
-                          });
-                        },
-                        style: OutlinedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          backgroundColor: Colors.blue.shade700,
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
+                CustomElevatedButton(
+                  label: 'Cadastrar',
+                  onPressed: () async {
+                    final CardYoutubeModel model = CardYoutubeModel(
+                      url: urlController.text,
+                      type: _selectedOption.typeCategory,
+                    );
+                    await context
+                        .read<MobflixRepository>()
+                        .cadasterVideo(model)
+                        .then((value) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (BuildContext context) {
+                            return const Home();
+                          },
                         ),
-                        child: const Text(
-                          'Cadastrar',
-                          style: TextStyle(fontSize: 20),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                      );
+                    });
+                  },
+                  backgroundColor: Colors.blue.shade700,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ],
             ),
           ),
         ),

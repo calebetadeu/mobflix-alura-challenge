@@ -1,8 +1,8 @@
 class CardYoutubeModel {
   final TypeCategory type;
   final String url;
-
-  CardYoutubeModel({ required this.type,required this.url});
+  final int?   id;
+  CardYoutubeModel({required this.type, required this.url, this.id});
 }
 
 enum TypeCategory {
@@ -10,6 +10,7 @@ enum TypeCategory {
   frontEnd(),
   programming(),
 }
+
 extension TypeCategoryExtension on TypeCategory {
   int get value {
     switch (this) {
