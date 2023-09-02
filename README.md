@@ -1,6 +1,5 @@
 # Mobflix - The Alura Netflix
 
-![Mobflix Logo](link_to_your_logo.png)
 
 ## Overview
 ![Captura de ecrã 2023-09-02, às 16 42 38](https://github.com/calebetadeu/mobflix-alura-challenge/assets/75142432/0c6df637-5642-4147-82ec-badb428ce282)
