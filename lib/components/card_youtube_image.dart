@@ -3,6 +3,8 @@ import 'package:mobflix_alura_challenge/components/tag_youtube.dart';
 import 'package:mobflix_alura_challenge/model/card_youtube_model.dart';
 import 'package:mobflix_alura_challenge/screens/cadaster/util/youtube_thumbnail.dart';
 
+import '../l10n/app_localization_en.dart';
+
 class CardYoutubeImage extends StatelessWidget {
   const CardYoutubeImage({
     super.key,
@@ -19,16 +21,17 @@ class CardYoutubeImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+      AppLocalizations localizations = AppLocalizations.of(context);
     switch (type) {
       case TypeCategory.mobile:
         colorCategory = Colors.red;
-        category = "Mobile";
+        category = localizations.mobile;
       case TypeCategory.frontEnd:
         colorCategory = Colors.green;
-        category = "Front End";
+        category = localizations.frontEndTitle;
       case TypeCategory.programming:
         colorCategory = Colors.blue;
-        category = "Programação";
+        category = localizations.programming;
     }
     return Padding(
       padding: const EdgeInsets.all(8.0),

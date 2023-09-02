@@ -11,6 +11,9 @@ class MobflixRepository extends ChangeNotifier {
   final List<CardYoutubeModel> cardsMobile = [];
   final List<CardYoutubeModel> cardsProgamacao = [];
   final List<CardYoutubeModel> cardsFrontEnd = [];
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading; // Getter para isLoading
 
   List<CardYoutubeModel> currentList = []; // Inicializando como uma lista vazia
   late CardYoutubeModel currentVideoYoutube;
@@ -40,7 +43,6 @@ class MobflixRepository extends ChangeNotifier {
   }
 
   Future<void> cadasterVideo(CardYoutubeModel model) async {
-    //final id = _uuid.v4();
     await db.insert('videos', {
       'category': model.type.toString(),
       'link': model.url,
@@ -48,7 +50,6 @@ class MobflixRepository extends ChangeNotifier {
     });
 
     _getVideosForCurrentCategory(model.type); // Chamando o método
-   // notifyListeners();
   }
 
   Future<void> updateVideo(CardYoutubeModel model) async {
@@ -59,30 +60,34 @@ class MobflixRepository extends ChangeNotifier {
         'link': model.url,
         'type': model.type.value,
       },
-      where: 'id = ?', // Update based on the video's ID
-      whereArgs: [model.id],
+      whereArgs: [model.url],
     );
-    _getVideosForCurrentCategory(model.type);
-    notifyListeners();
+    await changeCategory(model.type);
   }
 
   Future<void> _getVideosForCurrentCategory(TypeCategory? category) async {
+    _isLoading =
+        true; // Define isLoading como verdadeiro durante o carregamento
+    notifyListeners();
+
     if (category != null) {
       currentList = await _getVideosByCategory(category);
     }
+
+    _isLoading = false; // Define isLoading como falso após o carregamento
+    notifyListeners();
   }
 
-   Future<void> deleteVideo(CardYoutubeModel model) async {
+  Future<void> deleteVideo(CardYoutubeModel model) async {
     await db.delete(
       'videos',
-      where: 'id = ?', // Delete based on the video's ID
-      whereArgs: [model.id],
+      where: 'link = ?',
+      whereArgs: [model.url],
     );
 
     _getVideosForCurrentCategory(model.type);
     notifyListeners();
   }
-
 
   Future<List<CardYoutubeModel>> _getVideosByCategory(
       TypeCategory category) async {

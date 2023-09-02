@@ -22,39 +22,45 @@ class CardYoutubeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<MobflixRepository>(
-      builder: (context, mobflixProvider, child) {
-        List<CardYoutubeModel> list = mobflixProvider.currentList;
+    final mobflixProvider = Provider.of<MobflixRepository>(context);
+    List<CardYoutubeModel> list = mobflixProvider.currentList;
 
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: ListView.builder(
-            scrollDirection: Axis.vertical,
-            itemCount: list.length,
-            itemBuilder: (BuildContext context, int index) {
-              CardYoutubeModel model = list[index];
-              return GestureDetector(
-                onTap: () {
-                  _launchInBrowser(model.url); // Open the YouTube video URL
-                },
-                onLongPress: () {
-                  mobflixProvider.setVideoYoutubeEdit(model).then((_) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return const EditVideoScreen();
-                        },
-                      ),
-                    );
-                  });
-                },
-                child: CardYoutubeImage(type: model.type, image: model.url),
-              );
-            },
-          ),
-        );
-      },
-    );
+    if (mobflixProvider.isLoading) {
+      // Exibe o indicador de carregamento enquanto a lista está sendo carregada
+      return const Center(child: CircularProgressIndicator());
+    } else if (list.isEmpty) {
+      return const Center(
+        child: Text("Sem vídeos nesta categoria"),
+      );
+    } else {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView.builder(
+          scrollDirection: Axis.vertical,
+          itemCount: list.length,
+          itemBuilder: (BuildContext context, int index) {
+            CardYoutubeModel model = list[index];
+            return GestureDetector(
+              onTap: () {
+                _launchInBrowser(model.url); // Abre a URL do vídeo do YouTube
+              },
+              onLongPress: () {
+                mobflixProvider.setVideoYoutubeEdit(model).then((_) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return const EditVideoScreen();
+                      },
+                    ),
+                  );
+                });
+              },
+              child: CardYoutubeImage(type: model.type, image: model.url),
+            );
+          },
+        ),
+      );
+    }
   }
 }

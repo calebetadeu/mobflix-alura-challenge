@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../l10n/app_localization_en.dart';
+
+import '../l10n/app_localization_en.dart'; // Importe sua classe AppLocalizations
 
 class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const AppLocalizationsDelegate();
@@ -10,9 +11,12 @@ class AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
-    // Load the appropriate localization file
-    final localizations = AppLocalizations();
-    return localizations;
+    // Carregue a instância correta da classe AppLocalizations com base no idioma
+    if (locale.languageCode == 'pt') {
+      return AppLocalizations.pt();
+    } else {
+      return AppLocalizations.en();
+    }
   }
 
   @override

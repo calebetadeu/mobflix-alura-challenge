@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../components/custom_elevated_button.dart';
 import '../../components/input_cadaster.dart';
 import '../../components/input_select_cadaster.dart';
+import '../../l10n/app_localization_en.dart';
 import '../../model/selected_category_model.dart';
 import '../../repositories/mobflix_repository.dart';
 import '../home_screen.dart';
@@ -42,7 +43,7 @@ class _CadasterScreenState extends State<CadasterScreen> {
   }
 
   ImageProvider _thumbnailImageProvider =
-      AssetImage("images/preview_youtube.png");
+      const AssetImage("images/preview_youtube.png");
 
   @override
   void initState() {
@@ -63,13 +64,14 @@ class _CadasterScreenState extends State<CadasterScreen> {
     if (url.isNotEmpty) {
       return NetworkImage(url); // Use NetworkImage para URLs da web
     } else {
-      return AssetImage(
+      return const AssetImage(
           "images/preview_youtube.png"); // Usar a imagem padrão para URLs vazias
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations localizations = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
@@ -80,11 +82,11 @@ class _CadasterScreenState extends State<CadasterScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    "Cadastre o vídeo",
-                    style: TextStyle(
+                    localizations.cadasterVideo,
+                    style: const TextStyle(
                         fontSize: 32,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
@@ -93,7 +95,7 @@ class _CadasterScreenState extends State<CadasterScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InputCadaster(
-                    label: "URL",
+                    label: localizations.urlLabel,
                     hint: "Ex:SJDMDMMSMMDKFMD",
                     controller: urlController, // Pass the controller
                   ),
@@ -101,8 +103,8 @@ class _CadasterScreenState extends State<CadasterScreen> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InputSelectedCadaster(
-                    label: 'Categoria',
-                    hint: 'Selecione a área',
+                    label: localizations.categoryLabel,
+                    hint: localizations.selectedArea,
                     categoryList: _categoryList,
                     type: TypeCategory.mobile,
                     onChanged: (SelectedCategoryModel? newValue) {
@@ -115,11 +117,11 @@ class _CadasterScreenState extends State<CadasterScreen> {
                 const SizedBox(
                   height: 19,
                 ),
-                const Padding(
+                Padding(
                   padding: EdgeInsets.all(2.0),
                   child: Text(
-                    "Preview",
-                    style: TextStyle(
+                    localizations.preview,
+                    style: const TextStyle(
                         fontSize: 32,
                         color: Colors.white,
                         fontWeight: FontWeight.bold),
@@ -139,7 +141,7 @@ class _CadasterScreenState extends State<CadasterScreen> {
                   height: 25,
                 ),
                 CustomElevatedButton(
-                  label: 'Cadastrar',
+                  label: localizations.cadaster,
                   onPressed: () async {
                     final CardYoutubeModel model = CardYoutubeModel(
                       url: urlController.text,

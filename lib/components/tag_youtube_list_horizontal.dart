@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mobflix_alura_challenge/l10n/app_localization_en.dart';
 import 'package:mobflix_alura_challenge/model/card_youtube_model.dart';
 import 'package:provider/provider.dart';
 
@@ -14,21 +15,29 @@ class TagYoutubeListHorizontal extends StatefulWidget {
 }
 
 class _TagYoutubeListHorizontalState extends State<TagYoutubeListHorizontal> {
+  TypeCategory? selectedCategory;
   @override
   Widget build(BuildContext context) {
+    AppLocalizations localizations = AppLocalizations.of(context);
     List<TagYoutube> tagYoutubeList = [
-      const TagYoutube(
-        name: "Progamação",
+      TagYoutube(
+        name: localizations.programming,
         color: Colors.blueAccent,
         type: TypeCategory.programming,
+        isSelected: selectedCategory == TypeCategory.programming,
       ),
-      const TagYoutube(
-        name: "Front End",
+      TagYoutube(
+        name: localizations.frontEndTitle,
         color: Colors.green,
         type: TypeCategory.frontEnd,
+        isSelected: selectedCategory == TypeCategory.programming,
       ),
-      const TagYoutube(
-          name: "Mobile", color: Colors.red, type: TypeCategory.mobile),
+      TagYoutube(
+        name: localizations.mobile,
+        color: Colors.red,
+        type: TypeCategory.mobile,
+        isSelected: selectedCategory == TypeCategory.programming,
+      ),
     ];
 
     return Padding(

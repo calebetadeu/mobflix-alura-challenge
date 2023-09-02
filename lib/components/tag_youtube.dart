@@ -7,6 +7,7 @@ class TagYoutube extends StatelessWidget {
       required this.name,
       required this.color,
       this.changeColor,
+      this.isSelected = false,
       this.type // Tornando changeColor opcional
       })
       : super(key: key);
@@ -14,33 +15,34 @@ class TagYoutube extends StatelessWidget {
   final String? name;
   final Color? color;
   final TypeCategory? type;
-
+  final bool isSelected;
   final Future<void> Function()? changeColor; // Usando uma função opcional
 
   @override
   Widget build(BuildContext context) {
+    Color textColor = Colors.white;
     return OutlinedButton(
-      style: OutlinedButton.styleFrom(
-        backgroundColor: color,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
+        style: OutlinedButton.styleFrom(
+          backgroundColor: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
         ),
-      ),
-      onPressed: () async {
-        if (changeColor != null) {
-          await changeColor!(); // Chama a função somente se ela não for nula
-        }
-      },
-
-      child: 
-       name != null
-          ? Text(
-              name!,
-              style: const TextStyle(fontSize: 18),
-            )
-          : const SizedBox()
-      
-      
-    );
+        onPressed: () async {
+          if (changeColor != null) {
+            await changeColor!();
+          }
+          if (isSelected) {
+            textColor = Colors.white;
+          } else {
+            textColor = Colors.lime;
+          }
+        },
+        child: name != null
+            ? Text(
+                name!,
+                style: TextStyle(fontSize: 18, color: textColor),
+              )
+            : const SizedBox());
   }
 }

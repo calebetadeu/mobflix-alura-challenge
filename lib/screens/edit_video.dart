@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../components/custom_elevated_button.dart';
 import '../components/input_cadaster.dart';
 import '../components/input_select_cadaster.dart';
+import '../l10n/app_localization_en.dart';
 import '../model/card_youtube_model.dart';
 import '../model/selected_category_model.dart';
 import '../repositories/mobflix_repository.dart';
@@ -48,6 +49,8 @@ class _EditVideoScreenState extends State<EditVideoScreen> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations localizations = AppLocalizations.of(context);
+
     return Consumer<MobflixRepository>(
       builder: (context, mobflixProvider, child) {
         final currentVideo = mobflixProvider.currentVideoYoutube;
@@ -61,9 +64,9 @@ class _EditVideoScreenState extends State<EditVideoScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    const Text(
-                      "Edite o vídeo",
-                      style: TextStyle(
+                    Text(
+                      localizations.editVideoTitle,
+                      style: const TextStyle(
                         fontSize: 28,
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -72,7 +75,7 @@ class _EditVideoScreenState extends State<EditVideoScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: InputCadaster(
-                        label: "URL",
+                        label: localizations.urlLabel,
                         hint: "Ex:SJDMDMMSMMDKFMD",
                         controller: urlController,
                       ),
@@ -80,8 +83,8 @@ class _EditVideoScreenState extends State<EditVideoScreen> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: InputSelectedCadaster(
-                        label: 'Categoria',
-                        hint: 'Selecione a área',
+                        label: localizations.categoryLabel,
+                        hint: localizations.selectedArea,
                         categoryList: _categoryList,
                         type: mobflixProvider.currentVideoYoutube.type,
                         onChanged: (SelectedCategoryModel? newValue) {
@@ -94,11 +97,11 @@ class _EditVideoScreenState extends State<EditVideoScreen> {
                       ),
                     ),
                     //     const SizedBox(height: 19),
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        "Preview",
-                        style: TextStyle(
+                        localizations.preview,
+                        style: const TextStyle(
                           fontSize: 32,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -117,7 +120,7 @@ class _EditVideoScreenState extends State<EditVideoScreen> {
                     ),
                     const SizedBox(height: 12),
                     CustomElevatedButton(
-                      label: 'Alterar',
+                      label: localizations.toAlter,
                       onPressed: () async {
                         final CardYoutubeModel model = CardYoutubeModel(
                           url: urlController.text,
@@ -139,7 +142,7 @@ class _EditVideoScreenState extends State<EditVideoScreen> {
                     ),
                     const SizedBox(height: 8),
                     CustomElevatedButton(
-                      label: 'Remover',
+                      label: localizations.remove,
                       onPressed: () async {
                         await context
                             .read<MobflixRepository>()
