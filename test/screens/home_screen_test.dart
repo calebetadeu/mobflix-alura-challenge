@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mobflix_alura_challenge/components/card_youtube_list_vertical.dart';
-import 'package:mobflix_alura_challenge/components/tag_youtube_list_horizontal.dart';
 
 import 'package:mobflix_alura_challenge/screens/cadaster/cadaster_screen.dart';
 
