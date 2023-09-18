@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mobflix_alura_challenge/model/card_youtube_model.dart';
-import 'package:mobflix_alura_challenge/screens/cadaster/util/youtube_thumbnail.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/custom_elevated_button.dart';
@@ -10,6 +9,7 @@ import '../../l10n/app_localization_en.dart';
 import '../../model/selected_category_model.dart';
 import '../../repositories/mobflix_repository.dart';
 import '../home_screen.dart';
+import 'util/youtube_thumbnail.dart';
 
 class CadasterScreen extends StatefulWidget {
   const CadasterScreen({Key? key}) : super(key: key);
@@ -22,9 +22,6 @@ class _CadasterScreenState extends State<CadasterScreen> {
   final urlController = TextEditingController();
   late SelectedCategoryModel _selectedOption;
 
-  // late Image _thumbnailYoutube =
-  //     Image.asset("images/preview_youtube.png", fit: BoxFit.cover);
-
   late final List<SelectedCategoryModel> _categoryList = [
     SelectedCategoryModel(
       typeCategory: TypeCategory.mobile,
@@ -36,21 +33,15 @@ class _CadasterScreenState extends State<CadasterScreen> {
       typeCategory: TypeCategory.programming,
     ),
   ];
-  @override
-  void dispose() {
-    urlController.dispose();
-    super.dispose();
-  }
 
   ImageProvider _thumbnailImageProvider =
-      const AssetImage("images/preview_youtube.png");
+  const AssetImage("images/preview_youtube.png");
 
   @override
   void initState() {
     super.initState();
     _selectedOption = _categoryList.first;
     urlController.addListener(updateThumbnail);
-    // Initialize it with the first value
   }
 
   void updateThumbnail() {
@@ -59,19 +50,32 @@ class _CadasterScreenState extends State<CadasterScreen> {
     });
   }
 
-  // Função para obter um ImageProvider adequado
   ImageProvider getImageProviderFromUrl(String url) {
     if (url.isNotEmpty) {
-      return NetworkImage(url); // Use NetworkImage para URLs da web
+      return NetworkImage(url);
     } else {
-      return const AssetImage(
-          "images/preview_youtube.png"); // Usar a imagem padrão para URLs vazias
+      return const AssetImage("images/preview_youtube.png");
     }
   }
 
   @override
+  void dispose() {
+    urlController.dispose();
+    super.dispose();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
-    AppLocalizations localizations = AppLocalizations.of(context);
+    AppLocalizations? localizations = AppLocalizations.of(context);
+
+    if (localizations != null) {
+      // Use localizations aqui, sabendo que não é nulo.
+    } else {
+      // Lide com o caso em que localizations é nulo, se necessário.
+      return CircularProgressIndicator(); // Ou qualquer outro fallback
+    }
+
     return Scaffold(
       appBar: AppBar(),
       body: SafeArea(
@@ -87,9 +91,10 @@ class _CadasterScreenState extends State<CadasterScreen> {
                   child: Text(
                     localizations.cadasterVideo,
                     style: const TextStyle(
-                        fontSize: 32,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                      fontSize: 32,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
                 Padding(
@@ -97,7 +102,7 @@ class _CadasterScreenState extends State<CadasterScreen> {
                   child: InputCadaster(
                     label: localizations.urlLabel,
                     hint: "Ex:SJDMDMMSMMDKFMD",
-                    controller: urlController, // Pass the controller
+                    controller: urlController,
                   ),
                 ),
                 Padding(
@@ -106,30 +111,29 @@ class _CadasterScreenState extends State<CadasterScreen> {
                     label: localizations.categoryLabel,
                     hint: localizations.selectedArea,
                     categoryList: _categoryList,
-                    type: TypeCategory.mobile,
+                    type: _selectedOption.typeCategory,
                     onChanged: (SelectedCategoryModel? newValue) {
                       if (newValue != null) {
-                        _selectedOption = newValue;
+                        setState(() {
+                          _selectedOption = newValue;
+                        });
                       }
                     },
                   ),
                 ),
-                const SizedBox(
-                  height: 19,
-                ),
+                const SizedBox(height: 19),
                 Padding(
-                  padding: EdgeInsets.all(2.0),
+                  padding: const EdgeInsets.all(2.0),
                   child: Text(
                     localizations.preview,
                     style: const TextStyle(
-                        fontSize: 32,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
+                      fontSize: 32,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                const SizedBox(
-                  height: 4,
-                ),
+                const SizedBox(height: 4),
                 Center(
                   child: SizedBox(
                     height: 200,
@@ -137,9 +141,7 @@ class _CadasterScreenState extends State<CadasterScreen> {
                     child: getYoutubeThumbnail(urlController.text),
                   ),
                 ),
-                const SizedBox(
-                  height: 25,
-                ),
+                const SizedBox(height: 25),
                 CustomElevatedButton(
                   label: localizations.cadaster,
                   onPressed: () async {

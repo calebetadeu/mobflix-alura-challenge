@@ -7,7 +7,7 @@ import '../model/card_youtube_model.dart';
 
 class MobflixRepository extends ChangeNotifier {
   late Database db;
-  final Uuid _uuid = const Uuid();
+
   final List<CardYoutubeModel> cardsMobile = [];
   final List<CardYoutubeModel> cardsProgamacao = [];
   final List<CardYoutubeModel> cardsFrontEnd = [];
@@ -60,10 +60,14 @@ class MobflixRepository extends ChangeNotifier {
         'link': model.url,
         'type': model.type.value,
       },
+      where: 'link = ?',
       whereArgs: [model.url],
     );
-    await changeCategory(model.type);
+    currentList.clear(); // Limpa a lista atual
+    await _getVideosForCurrentCategory(model.type);
+    notifyListeners();
   }
+
 
   Future<void> _getVideosForCurrentCategory(TypeCategory? category) async {
     _isLoading =

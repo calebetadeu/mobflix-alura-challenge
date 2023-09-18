@@ -15,12 +15,12 @@ void main() {
     providers: [
       ChangeNotifierProvider(create: (context) => MobflixRepository()),
     ],
-    child: const MyApp(),
+    child: const MobflixAluraApp(),
   ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MobflixAluraApp extends StatelessWidget {
+  const MobflixAluraApp({super.key});
 
   // This widget is the root of your application.
   @override

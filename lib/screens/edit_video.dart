@@ -49,8 +49,15 @@ class _EditVideoScreenState extends State<EditVideoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations localizations = AppLocalizations.of(context);
-
+    final AppLocalizations? localizations = AppLocalizations.of(context);
+    if (localizations == null) {
+      // Lide com o caso em que localizations é nulo, se necessário.
+      return const Scaffold(
+        body: Center(
+          child: Text("Localizations not available"), // Mensagem de erro ou alternativa
+        ),
+      );
+    }
     return Consumer<MobflixRepository>(
       builder: (context, mobflixProvider, child) {
         final currentVideo = mobflixProvider.currentVideoYoutube;

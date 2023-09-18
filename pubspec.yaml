@@ -44,6 +44,7 @@ dependencies:
   uuid: ^3.0.4 
   intl: ^0.18.0 
   flutter_localization: ^0.1.13
+  sqflite_common_ffi: ^2.3.0+2
 dev_dependencies:
   flutter_test:
     sdk: flutter

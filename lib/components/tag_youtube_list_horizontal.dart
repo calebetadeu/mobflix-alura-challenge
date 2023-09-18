@@ -6,37 +6,50 @@ import 'package:provider/provider.dart';
 import '../repositories/mobflix_repository.dart';
 import 'tag_youtube.dart';
 
-class TagYoutubeListHorizontal extends StatefulWidget {
+class TagYoutubeListHorizontal extends StatelessWidget {
   const TagYoutubeListHorizontal({Key? key}) : super(key: key);
 
   @override
-  State<TagYoutubeListHorizontal> createState() =>
-      _TagYoutubeListHorizontalState();
-}
-
-class _TagYoutubeListHorizontalState extends State<TagYoutubeListHorizontal> {
-  TypeCategory? selectedCategory;
-  @override
   Widget build(BuildContext context) {
-    AppLocalizations localizations = AppLocalizations.of(context);
-    List<TagYoutube> tagYoutubeList = [
+    final AppLocalizations? localizations = AppLocalizations.of(context);
+    final TypeCategory? selectedCategory = Provider.of<TypeCategory?>(
+      context,
+      listen: false,
+    );
+
+    final List<TagYoutube> tagYoutubeList = [
       TagYoutube(
-        name: localizations.programming,
+        name: localizations?.programming ?? 'Programming', // Fallback se localizations for nulo
         color: Colors.blueAccent,
         type: TypeCategory.programming,
         isSelected: selectedCategory == TypeCategory.programming,
+        changeColor: () async {
+          await context
+              .read<MobflixRepository>()
+              .changeCategory(TypeCategory.programming);
+        },
       ),
       TagYoutube(
-        name: localizations.frontEndTitle,
+        name: localizations?.frontEndTitle ?? 'Front End', // Fallback se localizations for nulo
         color: Colors.green,
         type: TypeCategory.frontEnd,
-        isSelected: selectedCategory == TypeCategory.programming,
+        isSelected: selectedCategory == TypeCategory.frontEnd,
+        changeColor: () async {
+          await context
+              .read<MobflixRepository>()
+              .changeCategory(TypeCategory.frontEnd);
+        },
       ),
       TagYoutube(
-        name: localizations.mobile,
+        name: localizations?.mobile ?? 'Mobile', // Fallback se localizations for nulo
         color: Colors.red,
         type: TypeCategory.mobile,
-        isSelected: selectedCategory == TypeCategory.programming,
+        isSelected: selectedCategory == TypeCategory.mobile,
+        changeColor: () async {
+          await context
+              .read<MobflixRepository>()
+              .changeCategory(TypeCategory.mobile);
+        },
       ),
     ];
 
@@ -48,18 +61,9 @@ class _TagYoutubeListHorizontalState extends State<TagYoutubeListHorizontal> {
           scrollDirection: Axis.horizontal, // Define a orientação horizontal
           itemCount: tagYoutubeList.length, // Número de itens na lista
           itemBuilder: (BuildContext context, int index) {
-            TagYoutube tag = tagYoutubeList[index];
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TagYoutube(
-                name: tag.name,
-                color: tag.color,
-                changeColor: () async {
-                  await context
-                      .read<MobflixRepository>()
-                      .changeCategory(tag.type);
-                },
-              ),
+              child: tagYoutubeList[index],
             );
           },
         ),
